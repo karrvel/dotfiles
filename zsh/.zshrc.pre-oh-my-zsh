@@ -1,0 +1,14 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.zsh_history
+HISTSIZE=100
+SAVEHIST=1000000
+setopt notify
+unsetopt beep
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/colonel/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall

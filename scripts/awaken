@@ -1,0 +1,16 @@
+#!/bin/python3
+
+try:
+  import pyautogui
+except:
+  raise "Library pyautogui not installed"
+
+from random import randint
+from time import sleep
+
+x, y = pyautogui.size()
+
+while 1:
+  pyautogui.moveTo(randint(0, x), randint(0, y))
+  sleep(30)
+
