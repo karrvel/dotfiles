@@ -24,7 +24,7 @@ exec --no-startup-id conky -c /home/colonel/.config/conky/status
 exec --no-startup-id conky -c /home/colonel/.config/conky/time
 
 # autostart
-exec_always --no-startup-id picom -b --config /home/colonel/.config/picom/picom.conf # --experimental-backends 
+exec_always --no-startup-id picom --backend glx --vsync -b --config /home/colonel/.config/picom/picom.conf # --experimental-backends 
 exec setxkbmap -layout us,ru -option 'grp:win_space_toggle'
 
 # Font for window titles. Will also be used by the bar unless a different font
