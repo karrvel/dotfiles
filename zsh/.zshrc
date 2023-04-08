@@ -1,8 +1,5 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:/opt:$PATH
-export PATH="$PATH:$HOME/flutter/bin"
-export PATH="$PATH:$HOME/android-studio/bin"
-export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -82,8 +79,15 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export PATH="$PATH:$HOME/flutter/bin"
+export PATH="$PATH:$HOME/android-studio/bin"
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
-# export MANPATH="/usr/local/man:$MANPATH"
+
+# For CTF
+source .zshctf
+
+#export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -104,6 +108,5 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH=$PATH:/home/colonel/.spicetify
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
