@@ -79,13 +79,14 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/flutter/bin"
 export PATH="$PATH:$HOME/android-studio/bin"
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 
 
 # For CTF
-source .zshctf
+source ~/.zshctf
 
 #export MANPATH="/usr/local/man:$MANPATH"
 
