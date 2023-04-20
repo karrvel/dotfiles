@@ -14,8 +14,3 @@
 <br>
 
 **Terminal Apps**: gotop, cava, neofetch, ranger
-
-<br>
-<br>
-
-**Inspired by:** https://www.reddit.com/r/unixporn/comments/c0i8e1
