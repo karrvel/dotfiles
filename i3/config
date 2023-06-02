@@ -17,14 +17,14 @@ gaps outer 10
 gaps inner 5
 
 # Wallpaper
-exec_always --no-startup-id feh --bg-scale /home/colonel/.config/wallpapers/red-sea.webp
+exec_always --no-startup-id feh --bg-scale $HOME/.config/wallpapers/red-sea.webp
 
 # Conky
-exec --no-startup-id conky -c /home/colonel/.config/conky/status
-exec --no-startup-id conky -c /home/colonel/.config/conky/time
+exec --no-startup-id conky -c $HOME/.config/conky/status
+exec --no-startup-id conky -c $HOME/.config/conky/time
 
 # autostart
-exec_always --no-startup-id picom --backend glx --vsync -b --config /home/colonel/.config/picom/picom.conf # --experimental-backends 
+exec_always --no-startup-id picom --backend glx --vsync -b --config $HOME/.config/picom/picom.conf # --experimental-backends 
 exec setxkbmap -layout us,ru -option 'grp:win_space_toggle'
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -63,7 +63,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id light -U 20 # decrease screen
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 # start a terminal
-bindsym $mod+Return exec kitty --config /home/colonel/.config/kitty/kitty.conf
+bindsym $mod+Return exec kitty --config $HOME/.config/kitty/kitty.conf
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -172,10 +172,10 @@ bindsym $mod+Shift+e exec i3-msg exit
 
 
 # take a screenshot of a screen region and copy it to a clipboard
-bindsym --release Shift+Print exec "flameshot gui -c -p /home/colonel/Pictures/Screenshots"
+bindsym --release Shift+Print exec "flameshot gui -c -p $HOME/Pictures/Screenshots"
 
 # take a screenshot of a whole window and copy it to a clipboard
-bindsym --release Print exec "flameshot full -c -p /home/colonel/Pictures/Screenshots/"
+bindsym --release Print exec "flameshot full -c -p $HOME/Pictures/Screenshots/"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
