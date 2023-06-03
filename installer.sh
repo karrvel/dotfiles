@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# In order to get this file only, use command below:
+# curl https://raw.githubusercontent.com/karrvel/dotfiles/main/installer.sh -O installer.sh; chmod +x installer.sh; ./installer.sh
 
 # Identify Package Manager
 echo "> Identifying Package Manager..."
@@ -26,8 +28,8 @@ done
 echo "> Installing Oh-My-Zsh and plugins for it..."
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting
 
 
 # Get Dotfiles
@@ -42,9 +44,11 @@ rm $HOME/.zshrc
 
 # Linking Proccess
 echo "> Linking Config Files..."
+mkdir $HOME/.config
 
 linker ()
 {
+  echo "Linking $1"
   ln -s $HOME/dotfiles/$1 $HOME/.config/$1
 }
 
