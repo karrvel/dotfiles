@@ -19,7 +19,7 @@ do
     # Install required packages
     echo "> Installing required packages..."
 
-    sudo ${osInfo[$f]} wget git i3 i3blocks i3status feh flameshot kitty vim neovim picom zsh
+    sudo ${osInfo[$f]} wget git i3 i3blocks i3status feh flameshot kitty rofi vim neovim picom zsh
   fi
 done
 
