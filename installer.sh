@@ -1,82 +1,92 @@
 #!/usr/bin/env bash
+#
+# Installs this rice: packages, oh-my-zsh, then symlinks every config into place.
+#
+# To fetch just this file:
+#   curl -O https://raw.githubusercontent.com/karrvel/dotfiles/main/installer.sh
+#   chmod +x installer.sh && ./installer.sh
 
-# In order to get this file only, use command below:
-# curl https://raw.githubusercontent.com/karrvel/dotfiles/main/installer.sh -O installer.sh; chmod +x installer.sh; ./installer.sh
+set -u
 
-# Identify Package Manager
-echo "> Identifying Package Manager..."
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+CONFIG="$HOME/.config"
+BACKUP="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
-declare -A osInfo;
+PACKAGES="wget git i3 i3blocks i3status feh flameshot kitty rofi vim neovim picom zsh cava conky"
+
+
+# Identify package manager
+echo "> Identifying package manager..."
+
+declare -A osInfo
 osInfo[/etc/redhat-release]="yum install"
 osInfo[/etc/arch-release]="pacman -S"
 osInfo[/etc/debian_version]="apt-get install"
 
-for f in ${!osInfo[@]}
-do
-  if [[ -f $f ]];then
-    echo "> Package Manager found: " ${osInfo[$f]}
-
-    # Install required packages
+for f in "${!osInfo[@]}"; do
+  if [[ -f $f ]]; then
+    echo "> Package manager found: ${osInfo[$f]}"
     echo "> Installing required packages..."
-
-    sudo ${osInfo[$f]} wget git i3 i3blocks i3status feh flameshot kitty rofi vim neovim picom zsh
+    sudo ${osInfo[$f]} $PACKAGES
   fi
 done
 
 
-# Install Oh-My-Zsh and plugins for it
-echo "> Installing Oh-My-Zsh and plugins for it..."
+# Install oh-my-zsh and its plugins
+echo "> Installing Oh-My-Zsh and plugins..."
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting
-
-
-# Get Dotfiles
-echo "> Getting Dotfiles... (will be saved at $HOME/dotfiles)"
-
-git clone https://github.com/karrvel/dotfiles $HOME/dotfiles
-
-# Remove default files
-rm $HOME/.config/i3
-rm $HOME/.zshrc
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting"
 
 
-# Linking Proccess
-echo "> Linking Config Files..."
-mkdir $HOME/.config
+# Get the dotfiles
+if [[ ! -d $DOTFILES ]]; then
+  echo "> Cloning dotfiles into $DOTFILES..."
+  git clone https://github.com/karrvel/dotfiles "$DOTFILES"
+fi
 
-linker ()
-{
-  echo "Linking $1"
-  ln -s $HOME/dotfiles/$1 $HOME/.config/$1
+
+# Link everything, backing up whatever is already there
+echo "> Linking config files..."
+mkdir -p "$CONFIG" "$HOME/.local/share" "$BACKUP"
+
+link () {  # link <path-in-repo> <destination>
+  local src="$DOTFILES/$1" dest="$2"
+
+  if [[ -e $dest || -L $dest ]]; then
+    mv "$dest" "$BACKUP/" 2>/dev/null && echo "  backed up $dest"
+  fi
+
+  echo "  $dest -> $src"
+  ln -sfn "$src" "$dest"
 }
 
-linker i3
-linker i3blocks
-linker i3status
+link i3       "$CONFIG/i3"
+link i3blocks "$CONFIG/i3blocks"
+link i3status "$CONFIG/i3status"
+link kitty    "$CONFIG/kitty"
+link picom    "$CONFIG/picom"
+link cava     "$CONFIG/cava"
+link vim      "$CONFIG/vim"
+link nvim     "$CONFIG/nvim"
 
-linker kitty
-linker picom
-linker wallpapers
+link assets/wallpapers "$CONFIG/wallpapers"
+link assets/fonts      "$HOME/.local/share/fonts"
 
-linker vim
-linker nvim
-
-ln -s $HOME/dotfiles/zsh/.zshrc $HOME/.zshrc
-
-mkdir $HOME/.local 2>/dev/null
-mkdir $HOME/.local/share 2>/dev/null
-ln -s $HOME/dotfiles/fonts $HOME/.local/share/fonts
+link zsh/.zshrc  "$HOME/.zshrc"
+link vim/.vimrc  "$HOME/.vimrc"
 
 
-# Update fonts
+# Refresh the font cache
 echo "> Updating fonts..."
+"$DOTFILES/assets/fonts/font-updater"
 
-$HOME/dotfiles/fonts/font-updater
 
-# Make zshctf file (See: https://github.com/karrvel/dotfiles/blob/main/zsh/.zshrc#L88)
-touch $HOME/.zshctf
+# .zshrc sources this unconditionally; create it so a new shell does not error
+touch "$HOME/.zshctf"
 
-echo "> In order to change wallpaper check out i3 config (:Line 20)"
-echo "> Installing Finished! Happy ricing)"
+echo
+echo "> Backups of any replaced files are in $BACKUP"
+echo "> To change the wallpaper, edit i3/config (the feh line near the top)"
+echo "> Install finished! Happy ricing)"

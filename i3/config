@@ -12,7 +12,7 @@
 set $mod Mod1
 
 # Gaps
-for_window [class=".*"] border pixel0
+for_window [class=".*"] border pixel 0
 gaps outer 10
 gaps inner 5
 
