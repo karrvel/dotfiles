@@ -54,8 +54,14 @@ mkdir -p "$CONFIG" "$HOME/.local/share" "$BACKUP"
 link () {  # link <path-in-repo> <destination>
   local src="$DOTFILES/$1" dest="$2"
 
+  # Move anything already there out of the way. If that fails, bail out rather
+  # than continue: ln into an existing directory would nest the link inside it.
   if [[ -e $dest || -L $dest ]]; then
-    mv "$dest" "$BACKUP/" 2>/dev/null && echo "  backed up $dest"
+    if ! mv "$dest" "$BACKUP/"; then
+      echo "  ! could not back up $dest, skipping" >&2
+      return 1
+    fi
+    echo "  backed up $dest"
   fi
 
   echo "  $dest -> $src"

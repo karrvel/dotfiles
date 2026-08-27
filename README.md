@@ -79,7 +79,7 @@ The window manager and terminal share one background; the terminal's ANSI colors
 
 <br>
 
-Same configs, earlier era: the bar ran `i3blocks` with icon blocklets, and the wallpaper was `argumented-city.jpg`.
+Same configs, earlier era: the bar ran `i3blocks` — driving the **distro's** blocklets from `/usr/share/i3blocks/`, not the scripts in `i3blocks/scripts/` (see [`CREDITS.md`](i3blocks/scripts/CREDITS.md)) — over a neon cityscape wallpaper that isn't one of the ones in `assets/wallpapers/`.
 
 [![kali desktop](assets/screenshots/kali-1.png)](assets/screenshots/kali-1.png)
 
