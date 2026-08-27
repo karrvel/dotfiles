@@ -8,6 +8,7 @@
 <img src="https://img.shields.io/badge/Terminal-kitty-9e6ffe?style=for-the-badge&labelColor=181c30" alt="kitty" />
 <img src="https://img.shields.io/badge/Shell-zsh-b6e354?style=for-the-badge&labelColor=181c30" alt="zsh" />
 <img src="https://img.shields.io/badge/Editor-neovim-f92672?style=for-the-badge&labelColor=181c30" alt="neovim" />
+<img src="https://img.shields.io/badge/License-MIT-feed6c?style=for-the-badge&labelColor=181c30" alt="MIT" />
 
 <br>
 
@@ -222,7 +223,7 @@ Kept honest rather than tidied away:
 
 ### Licensing
 
-The config files here are mine — take them, fork them, rice them. The bundled assets are **not**: each font keeps its own `OFL.txt`, Font Awesome ships under its own terms, and the GRUB theme and wallpapers belong to their respective authors. Check those before redistributing.
+The config files here are [MIT](LICENSE) — take them, fork them, rice them. The bundled assets are **not** covered: each font keeps its own `OFL.txt`, Font Awesome ships under its own terms, and the GRUB theme and wallpapers belong to their respective authors. [`LICENSE`](LICENSE) spells out exactly what is and isn't included; check it before redistributing.
 
 <div align="center">
 
