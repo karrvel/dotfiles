@@ -1,10 +1,19 @@
 #!/bin/bash
 # Based on http://openweathermap.org/current
 
-API_KEY="2a899fcbd064d92dee6293115b08bf7a"
+# Get a key on http://openweathermap.org/api and export it from your shell:
+#   export OPENWEATHER_API_KEY="..."
+API_KEY="${OPENWEATHER_API_KEY}"
 
 # Check on http://openweathermap.org/find
 CITY_ID="${BLOCK_INSTANCE}"
+
+if [ -z "${API_KEY}" ]; then
+  echo "no OPENWEATHER_API_KEY"
+  echo "no api key"
+  echo ""
+  exit 0
+fi
 
 URGENT_LOWER=0
 URGENT_HIGHER=30
